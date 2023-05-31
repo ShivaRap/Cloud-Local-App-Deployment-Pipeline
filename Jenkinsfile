@@ -5,31 +5,32 @@ pipeline {
     }
     stages {
          stage('Clone repository') { 
-            steps { 
+            steps {
                 script{
                 checkout scm
                 }
             }
         }
 
-        stage('Build') { 
+        stage('Build') {
             steps { 
                 script{
-                 app = docker.build("bc-services-app")
+                 app = docker.build("bc-express-app")
                 }
             }
         }
-        stage('Test'){
-            steps {
-                 echo 'Empty'
-            }
-        }
-        stage('Push') {
+        stage('Tag') {
             steps {
                 script{
-                        docker.withRegistry('https://720766170633.dkr.ecr.us-east-2.amazonaws.com', 'ecr:us-east-2:aws-credentials') {
+                    app.tag('jenkinstest')
+                }
+            }
+        }        stage('Push') {
+            steps {
+                script{
+                        docker.withRegistry('860371349641.dkr.ecr.us-west-2.amazonaws.com/bc-express-app', 'aws-cred') {
                     app.push("${env.BUILD_NUMBER}")
-                    app.push("latest")
+                    app.push("latest2")
                     }
                 }
             }
