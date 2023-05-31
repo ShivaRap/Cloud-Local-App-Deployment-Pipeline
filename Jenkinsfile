@@ -29,7 +29,7 @@ pipeline {
         stage('Push') {
             steps {
                 script{
-                        docker.withRegistry('860371349641.dkr.ecr.us-west-2.amazonaws.com/bc-express-app', 'aws-cred') {
+                        docker.withRegistry('860371349641.dkr.ecr.us-west-2.amazonaws.com/bc-express-app', 'awsCred') {
                     app.push("${env.BUILD_NUMBER}")
                     app.push("latest2")
                     }
