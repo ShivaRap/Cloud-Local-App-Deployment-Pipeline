@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git credentialsId: 'gitcred', url: 'https://github.com/ShivaRap/Shiva-Rapol-IS27-devops-specialist-competition-req99120'
+                git credentialsId: 'gitcred', url: 'https://github.com/ShivaRap/Shiva-Rapol-IS27-devops-specialist-competition-req99120.git'
             }
         }
 
