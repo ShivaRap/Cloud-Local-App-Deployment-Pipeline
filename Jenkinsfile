@@ -25,7 +25,8 @@ pipeline {
                     app.tag('jenkinstest')
                 }
             }
-        }        stage('Push') {
+        }        
+        stage('Push') {
             steps {
                 script{
                         docker.withRegistry('860371349641.dkr.ecr.us-west-2.amazonaws.com/bc-express-app', 'aws-cred') {
