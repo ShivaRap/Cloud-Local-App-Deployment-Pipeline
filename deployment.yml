@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bc-express-app-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: bc-express-app
+  template:
+    metadata:
+      labels:
+        app: bc-express-app
+    spec:
+      containers:
+        - name: bc-express-app
+          image: 860371349641.dkr.ecr.us-west-2.amazonaws.com/bc-express-app:latest
+          ports:
+            - containerPort: 3000
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 5
+      imagePullSecrets:
+      - name: dockubecred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bc-express-app-service
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 3000
+      targetPort: 3000
+  selector:
+    app: bc-express-app

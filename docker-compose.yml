@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  expressjs-app:
+    build: .
+    ports:
+      - '3000:3000'
+    image: bc-express-app
+    container_name: express-app-container
+
