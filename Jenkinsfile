@@ -43,7 +43,7 @@ pipeline {
             }
         }
         
-        stage("Using curl example") {
+        stage("Using curl") {
             steps {
                 script {
                     final String url = "adc1830dd0d7747e2917788baf46f4e1-1639727320.us-west-2.elb.amazonaws.com:3000/api/health"
