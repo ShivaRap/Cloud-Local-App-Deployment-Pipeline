@@ -73,11 +73,12 @@ Example: /opt/homebrew/Cellar/jenkins-lts/2.401.1/homebrew.mxcl.jenkins-lts.plis
 Open the homebrew.mxcl.jenkins-lts.plist file.
 Locate the sections where Jenkins and kubectl are installed.
 Add the paths for both Docker and kubectl installations. This addition should cover all the required paths by default.
-	<key>EnvironmentVariables</key>
-	<dict>
-    	<key>PATH</key>
-        <string>/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin</string>
-	</dict>
+	   
+           <key>EnvironmentVariables</key>
+	   <dict>
+    	   <key>PATH</key>
+           <string>/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin</string>
+	   </dict>
 	
 Step 3: Configure AWS Credentials in Jenkins
 
