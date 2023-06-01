@@ -26,34 +26,17 @@ pipeline {
                 }
             }
         }        
-//         stage('Push') {
-//             steps {
-//                 script{
-//                         docker.withRegistry('https://860371349641.dkr.ecr.us-west-2.amazonaws.com/bc-express-app', 'credentials(awsCred)') {
-//                     app.push("${env.BUILD_NUMBER}")
-//                     app.push("latest2")
-//                     }
-//                 }
-//             }
-//         }
         stage('Push') {
             steps {
                 script{
-                    sh '''
-                    withCredentials([[
-                        $class: 'AmazonWebServicesCredentialsBinding', 
-                        accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
-                        credentialsId: 'awsCred', 
-                        secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
-                    ]]) {
-                         $(aws ecr get-login --no-include-email --region us-west-2)
-                         docker tag bc-express-app:latest 860371349641.dkr.ecr.us-west-2.amazonaws.com/bc-express-app:jenkinstest
-                         docker push 860371349641.dkr.ecr.us-west-2.amazonaws.com/bc-express-app:jenkinstest
-                        }
-                     '''
+                        docker.withRegistry('https://860371349641.dkr.ecr.us-west-2.amazonaws.com/bc-express-app', 'credentials(awsCred)') {
+                        app.push("${env.BUILD_NUMBER}")
+                        app.push("latest2")
+                    }
                 }
             }
         }
+      
         stage('Deploy'){
             steps {
                  sh 'kubectl apply -f deployment.yml'
